@@ -4,7 +4,7 @@ namespace Kinect.Interfaces
 {
     public interface IGestures
     {
-        event EventHandler GrabAndThrowRightHanded;
-        event EventHandler GrabAndThrowLeftHanded;
+        event EventHandler<ulong> GrabAndThrowRightHanded;
+        event EventHandler<ulong> GrabAndThrowLeftHanded;
     }
 }

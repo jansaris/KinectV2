@@ -27,12 +27,12 @@ namespace Kinect.Powerpoint
             _gestures.GrabAndThrowRightHanded += GrabAndThrowRightHanded;
         }
 
-        private void GrabAndThrowRightHanded(object sender, EventArgs e)
+        private void GrabAndThrowRightHanded(object sender, ulong e)
         {
             UpdateLastEvent("Grab and throw (right hand)");
         }
 
-        void GrabAndThrowLeftHanded(object sender, EventArgs e)
+        void GrabAndThrowLeftHanded(object sender, ulong e)
         {
             UpdateLastEvent("Grab and throw (left hand)");
         }

@@ -17,7 +17,7 @@ namespace Kinect.Gestures
         private readonly Body[] _bodies = new Body[6];
         private readonly Dictionary<ulong, Tuple<State,int>> _currentState = new Dictionary<ulong, Tuple<State,int>>(); 
         
-        public event EventHandler Detected;
+        public event EventHandler<ulong> Detected;
 
         public GrabAndThrow(HandToWatch handToWatch)
         {
@@ -61,7 +61,7 @@ namespace Kinect.Gestures
                             SetCurrentState(body.TrackingId, State.HandRight);
                         break;
                     case State.HandRight:
-                        InvokeDetected();
+                        InvokeDetected(body.TrackingId);
                         SetCurrentState(body.TrackingId, State.Unknown, 0);
                         break;
                 }
@@ -69,12 +69,12 @@ namespace Kinect.Gestures
             }
         }
 
-        private void InvokeDetected()
+        private void InvokeDetected(ulong userId)
         {
             var handler = Detected;
             if (handler != null)
             {
-                handler.Invoke(this,new EventArgs());
+                handler.Invoke(this, userId);
             }
         }
 

@@ -5,7 +5,7 @@ namespace Kinect.Interfaces
 {
     public interface IGesture
     {
-        event EventHandler Detected;
+        event EventHandler<ulong> Detected;
         void FrameArrived(object sender, BodyFrameArrivedEventArgs e);
     }
 }

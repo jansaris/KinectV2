@@ -9,12 +9,12 @@ namespace Kinect.Gestures
         private GrabAndThrow _leftHand;
         private GrabAndThrow _rightHand;
 
-        public event EventHandler GrabAndThrowRightHanded
+        public event EventHandler<ulong> GrabAndThrowRightHanded
         {
             add{ RegisterRightHandGrabAndThrow(value); }
             remove {UnRegisterRightHandGrabAndThrow(value);}
         }
-        public event EventHandler GrabAndThrowLeftHanded
+        public event EventHandler<ulong> GrabAndThrowLeftHanded
         {
             add{ RegisterLeftHandGrabAndThrow(value); }
             remove {UnRegisterLeftHandGrabAndThrow(value);}
@@ -25,25 +25,25 @@ namespace Kinect.Gestures
             _detector = detector;
         }
 
-        private void RegisterRightHandGrabAndThrow(EventHandler handler)
+        private void RegisterRightHandGrabAndThrow(EventHandler<ulong> handler)
         {
             if (_rightHand == null) _rightHand = InitializeGrabAndThrow(GrabAndThrow.HandToWatch.HandRight);
             _rightHand.Detected += handler;
         }
 
-        private void UnRegisterRightHandGrabAndThrow(EventHandler handler)
+        private void UnRegisterRightHandGrabAndThrow(EventHandler<ulong> handler)
         {
             if (_rightHand == null) return;
             _rightHand.Detected -= handler;
         }
 
-        private void RegisterLeftHandGrabAndThrow(EventHandler handler)
+        private void RegisterLeftHandGrabAndThrow(EventHandler<ulong> handler)
         {
             if (_leftHand == null) _leftHand = InitializeGrabAndThrow(GrabAndThrow.HandToWatch.HandLeft);
             _leftHand.Detected += handler;
         }
 
-        private void UnRegisterLeftHandGrabAndThrow(EventHandler handler)
+        private void UnRegisterLeftHandGrabAndThrow(EventHandler<ulong> handler)
         {
             if (_leftHand == null) return;
             _leftHand.Detected -= handler;

@@ -19,13 +19,13 @@ namespace Kinect.Powerpoint
             _detector.GrabAndThrowLeftHanded += GrabAndThrowLeftHanded;
         }
 
-        private void GrabAndThrowLeftHanded(object sender, EventArgs e)
+        private void GrabAndThrowLeftHanded(object sender, ulong e)
         {
             Logger.DebugFormat("Try to execute 'previous' on presentation");
             ExecuteOnSlideShow(view => view.Previous());
         }
 
-        private void GrabAndThrowRightHanded(object sender, EventArgs e)
+        private void GrabAndThrowRightHanded(object sender, ulong e)
         {
             Logger.DebugFormat("Try to execute 'next' on presentation");
             ExecuteOnSlideShow(view => view.Next());

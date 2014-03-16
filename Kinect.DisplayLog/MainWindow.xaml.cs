@@ -28,12 +28,12 @@ namespace Kinect.DisplayLog
             Logger.WarnFormat("TrackedBodyCount changed to: {0}", e);
         }
 
-        void GrabAndThrowRight(object sender, EventArgs e)
+        void GrabAndThrowRight(object sender, ulong e)
         {
             Logger.Warn("GrabAndThrow detected (right)");
         }
 
-        void GrabAndThrowLeft(object sender, EventArgs e)
+        void GrabAndThrowLeft(object sender, ulong e)
         {
             Logger.Warn("GrabAndThrow detected (left)");
         }
