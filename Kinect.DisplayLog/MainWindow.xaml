@@ -1,0 +1,8 @@
+﻿<Window x:Class="Kinect.DisplayLog.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525" Closed="Window_Closed" WindowState="Maximized">
+    <Grid>
+        <TextBox x:Name="txtLog" TextWrapping="Wrap" Text="TextBox" FontSize="22" />
+    </Grid>
+</Window>
