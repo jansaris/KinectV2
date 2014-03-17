@@ -1,49 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Kinect.Interfaces;
 using log4net;
 using Microsoft.Kinect;
 
 namespace Kinect.Gestures
 {
-    public class GrabAndThrow : IGesture
+    public class GrabAndThrow : GestureBase
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(GrabAndThrow));
+
         public enum HandToWatch { HandLeft, HandRight };
         private enum State { Unknown, ArmInFront, HandClosed, HandRight };
 
         private readonly JointType _handToWatch;
-        private static readonly ILog Logger = LogManager.GetLogger(typeof(GrabAndThrow));
-        private readonly Body[] _bodies = new Body[6];
         private readonly Dictionary<ulong, Tuple<State,int>> _currentState = new Dictionary<ulong, Tuple<State,int>>(); 
-        
-        public event EventHandler<ulong> Detected;
 
         public GrabAndThrow(HandToWatch handToWatch)
         {
             _handToWatch = handToWatch == HandToWatch.HandLeft ? JointType.HandLeft : JointType.HandRight;
         }
 
-        public void FrameArrived(object sender, BodyFrameArrivedEventArgs e)
+        protected override void AnalyzeNewBodyData()
         {
-            try
-            {
-                using (var frame = e.FrameReference.AcquireFrame())
-                {
-                    AnalyzeFrame(frame);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.ErrorFormat("An error occured during processing of gesture: {0}",ex.Message);
-            }
-        }
-
-        private void AnalyzeFrame(BodyFrame frame)
-        {
-            if(frame == null) return;
-            frame.GetAndRefreshBodyData(_bodies);
-            foreach (var body in _bodies.Where(b => b.IsTracked))
+            foreach (var body in Bodies.Where(b => b.IsTracked))
             {
                 var state = GetCurrentState(body.TrackingId);
                 switch (state)
@@ -66,15 +46,6 @@ namespace Kinect.Gestures
                         break;
                 }
                 DecreaseFrameTicker(body.TrackingId);
-            }
-        }
-
-        private void InvokeDetected(ulong userId)
-        {
-            var handler = Detected;
-            if (handler != null)
-            {
-                handler.Invoke(this, userId);
             }
         }
 
