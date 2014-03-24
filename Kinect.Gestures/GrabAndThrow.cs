@@ -10,7 +10,6 @@ namespace Kinect.Gestures
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(GrabAndThrow));
 
-        public enum HandToWatch { HandLeft, HandRight };
         private enum State { Unknown, ArmInFront, HandClosed, HandRight };
 
         private readonly JointType _handToWatch;

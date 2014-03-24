@@ -52,8 +52,12 @@ namespace Kinect.DisplayLog
                 Logger.InfoFormat("Initialize kinect");
                 _kinectManager = new KinectManager();
                 _gestureFactory = new GestureFactory(_kinectManager);
-                _gestureFactory.GrabAndThrowLeftHanded += GrabAndThrowLeft;
-                _gestureFactory.GrabAndThrowRightHanded += GrabAndThrowRight;
+                //_gestureFactory.GrabAndThrowLeftHanded += GrabAndThrowLeft;
+                //_gestureFactory.GrabAndThrowRightHanded += GrabAndThrowRight;
+                _gestureFactory.RightHandClosed += RightHandClosed;
+                _gestureFactory.LeftHandClosed += LeftHandClosed;
+                _gestureFactory.RightHandOpened += RightHandOpened;
+                _gestureFactory.LeftHandOpened += LeftHandOpened;
                 _kinectManager.TrackedBodyCountChanged += TrackedBodyCountChanged;
                 Logger.InfoFormat("Kinect initialized with status: {0}", _kinectManager.Status);
             }
@@ -61,6 +65,26 @@ namespace Kinect.DisplayLog
             {
                 Logger.ErrorFormat("Failed to start kinect: {0}", eX.Message);
             }
+        }
+
+        void LeftHandOpened(object sender, ulong e)
+        {
+            Logger.Warn("Hand opened detected (left)");
+        }
+
+        void RightHandOpened(object sender, ulong e)
+        {
+            Logger.Warn("Hand opened detected (right)");
+        }
+
+        private void LeftHandClosed(object sender, ulong e)
+        {
+            Logger.Warn("Hand closed detected (left)");
+        }
+
+        private void RightHandClosed(object sender, ulong e)
+        {
+            Logger.Warn("Hand closed detected (right)");
         }
 
         private void Window_Closed(object sender, EventArgs e)

@@ -48,8 +48,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions.cs" />
+    <Compile Include="GestureBase.cs" />
     <Compile Include="GestureFactory.cs" />
     <Compile Include="GrabAndThrow.cs" />
+    <Compile Include="HandClosed.cs" />
+    <Compile Include="HandOpened.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@ namespace Kinect.DisplayLog
         protected override void Append(log4net.Core.LoggingEvent loggingEvent)
         {
             if (_textBox == null) return;
-            var text = string.Format("{0}{1}{2}",loggingEvent.RenderedMessage, Environment.NewLine, _textBox.Text);
+            var text = string.Format("{3}{0}{1}{2}",loggingEvent.RenderedMessage, Environment.NewLine, _textBox.Text,loggingEvent.LoggerName);
             if (text.Length > TextLength) text = text.Substring(0, TextLength);
             _textBox.Text = text;
         }
