@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect.Powerpoint", "Kinect
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman_Game", "Pacman_Game\Pacman_Game.csproj", "{BAEBBDFC-6512-405F-8D3B-0CB96A42A83A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect.Keyboard", "Kinect.Keyboard\Kinect.Keyboard.csproj", "{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -103,6 +105,22 @@ Global
 		{BAEBBDFC-6512-405F-8D3B-0CB96A42A83A}.Test|Mixed Platforms.Build.0 = Release|x86
 		{BAEBBDFC-6512-405F-8D3B-0CB96A42A83A}.Test|x86.ActiveCfg = Release|x86
 		{BAEBBDFC-6512-405F-8D3B-0CB96A42A83A}.Test|x86.Build.0 = Release|x86
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Debug|x86.Build.0 = Debug|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Release|x86.ActiveCfg = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Test|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Test|Any CPU.Build.0 = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Test|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Test|Mixed Platforms.Build.0 = Release|Any CPU
+		{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}.Test|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
