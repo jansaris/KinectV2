@@ -19,8 +19,8 @@ namespace Kinect.Gestures
                 {
                     if (frame == null) return;
                     frame.GetAndRefreshBodyData(Bodies);
-                    AnalyzeNewBodyData();
                 }
+                AnalyzeNewBodyData();
             }
             catch (Exception ex)
             {
