@@ -12,7 +12,6 @@ namespace Kinect.Keyboard
         {
             Kernel.Bind<IKinectStatus>().To(typeof(KinectManager)).InSingletonScope();
             Kernel.Bind<IGestureDetector>().To(typeof(KinectManager)).InSingletonScope();
-            Kernel.Bind<IGestures>().To(typeof(GestureFactory)).InSingletonScope();
         }
 
         public static void ShutDown()

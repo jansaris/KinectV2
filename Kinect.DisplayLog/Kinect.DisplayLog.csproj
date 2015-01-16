@@ -106,7 +106,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Kinect.Gestures\Kinect.Gestures.csproj">
       <Project>{507f4fc1-16dc-4c51-9fa8-3e2c57f705e4}</Project>
-      <Name>Gestures</Name>
+      <Name>Kinect.Gestures</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kinect.Core\Kinect.Core.csproj">
       <Project>{dddec1c7-ae14-4c2c-8a1c-466ca47a6c87}</Project>

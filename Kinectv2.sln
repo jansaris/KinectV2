@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect.Interfaces", "Kinect.Interfaces\Kinect.Interfaces.csproj", "{8D7A8DF6-8982-4924-BA28-3DD639A95CD3}"
 EndProject
@@ -16,6 +16,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pacman_Game", "Pacman_Game\Pacman_Game.csproj", "{BAEBBDFC-6512-405F-8D3B-0CB96A42A83A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kinect.Keyboard", "Kinect.Keyboard\Kinect.Keyboard.csproj", "{1C2163D8-EABA-4AC8-A6AA-C8B8735A9702}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{B06704AF-2894-45C6-8843-D6EA619D2137}"
+	ProjectSection(SolutionItems) = preProject
+		Images\hand.png = Images\hand.png
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

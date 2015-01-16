@@ -19,7 +19,7 @@ namespace Kinect.Core
 
         public KinectManager()
         {
-            _kinectSensor = KinectSensor.Default;
+            _kinectSensor = KinectSensor.GetDefault();
             if (_kinectSensor == null)
             {
                 Status = "Failed to create Kinect instance";
@@ -69,7 +69,7 @@ namespace Kinect.Core
 
         private void OnAvailableChanged(bool isAvailable)
         {
-            Status = _kinectSensor.Status.ToString();
+            Status = _kinectSensor.IsAvailable ? "Kinect is available" : "Kinect is not available";
             OnEvent(AvailabilityChanged, isAvailable);
         }
 
@@ -103,9 +103,7 @@ namespace Kinect.Core
             if (_kinectSensor != null)
             {
                 if (_kinectSensor.IsOpen) _kinectSensor.Close();
-                _kinectSensor.Dispose();    
             }
-            
         }
 
         public void RegisterGesture(IGesture gesture)
