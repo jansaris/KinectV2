@@ -80,7 +80,9 @@
     <Compile Include="Arrows\ArrowLine.cs" />
     <Compile Include="Arrows\ArrowLineBase.cs" />
     <Compile Include="Arrows\ArrowPolyline.cs" />
+    <Compile Include="ClapGesture.cs" />
     <Compile Include="HandTracker.cs" />
+    <Compile Include="HandUpGesture.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

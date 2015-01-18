@@ -2,12 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
+        mc:Ignorable="d"
         Title="Kinect Demo" Height="1000" Width="1000" Closed="Window_Closed">
     <Canvas x:Name="Canvas">
         <Label Content="{Binding ScreenMessage}" />
         <Image x:Name="HandImage" Canvas.Top="{Binding HandTop}" Canvas.Left="{Binding HandLeft}" />
-        <Image x:Name="HandUpImage" Canvas.Top="400" Canvas.Left="400" />
-        <Image x:Name="ClapImage" Canvas.Top="300" Canvas.Left="250" />
+        <Image x:Name="HandUpImage" Canvas.Top="400" Canvas.Left="400" Visibility="{Binding HandUpVisibility}" />
+        <Image x:Name="ClapImage" Canvas.Top="300" Canvas.Left="250" Visibility="{Binding ClapVisibility}" gif:ImageBehavior.RepeatBehavior="1x" gif:ImageBehavior.AnimationCompleted="AnimationCompleted" />
     </Canvas>
 </Window>

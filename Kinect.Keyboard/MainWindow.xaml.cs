@@ -19,11 +19,13 @@ namespace Kinect.Keyboard
         private float _handTop;
         private float _kinectX;
         private float _kinectY;
+        private Visibility _handUpVisibility;
+        private Visibility _clapVisibility;
 
         public float KinectX
         {
             get { return _kinectX; }
-            set
+            private set
             {
                 _kinectX = value;
                 OnPropertyChanged();
@@ -34,7 +36,7 @@ namespace Kinect.Keyboard
         public float KinectY
         {
             get { return _kinectY; }
-            set
+            private set
             {
                 _kinectY = value;
                 OnPropertyChanged();
@@ -50,7 +52,7 @@ namespace Kinect.Keyboard
         public float HandTop
         {
             get { return _handTop; }
-            set
+            private set
             {
                 _handTop = value;
                 OnPropertyChanged();
@@ -60,15 +62,32 @@ namespace Kinect.Keyboard
         public float HandLeft
         {
             get { return _handLeft; }
-            set
+            private set
             {
                 _handLeft = value;
                 OnPropertyChanged();
             }
         }
 
-        public Visibility HandUpVisibility { get; private set; }
-        public Visibility ClapVisibility { get; private set; }
+        public Visibility HandUpVisibility
+        {
+            get { return _handUpVisibility; }
+            private set 
+            { 
+                _handUpVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public Visibility ClapVisibility
+        {
+            get { return _clapVisibility; }
+            private set
+            {
+                _clapVisibility = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MainWindow(IGestureDetector gestureDetector)
         {
@@ -85,6 +104,8 @@ namespace Kinect.Keyboard
         private void InitializeKinect()
         {
             InitializeHandTracker();
+            InitializeHandUpGesture();
+            InitializeClapGesture();
         }
 
         private void InitializeHandTracker()
@@ -101,10 +122,39 @@ namespace Kinect.Keyboard
             _gestureDetector.RegisterGesture(tracker);
         }
 
+        private void InitializeHandUpGesture()
+        {
+            var handUp = new HandUpGesture();
+            handUp.HandUpChanged += (sender, e) =>
+            {
+                HandUpVisibility = handUp.HandUp ? Visibility.Visible : Visibility.Collapsed;
+            };
+            _gestureDetector.RegisterGesture(handUp);
+        }
+
+        private void InitializeClapGesture()
+        {
+            var clap = new ClapGesture();
+            clap.Detected += (sender, e) =>
+            {
+                ClapVisibility = Visibility.Visible;
+                var controller = ImageBehavior.GetAnimationController(ClapImage);
+                controller.Play();
+            };
+            _gestureDetector.RegisterGesture(clap);
+        }
+
+        private void AnimationCompleted(object sender, RoutedEventArgs e)
+        {
+            ClapVisibility = Visibility.Collapsed;
+        }
+
         private void PrepareImages()
         {
             HandImage.Source = CreateBitmapImage("Hand.png");
+            HandUpVisibility = Visibility.Collapsed;
             HandUpImage.Source = CreateBitmapImage("HandUp.jpg");
+            ClapVisibility = Visibility.Collapsed;
             ImageBehavior.SetAnimatedSource(ClapImage, CreateBitmapImage("Clap.gif"));
         }
 
