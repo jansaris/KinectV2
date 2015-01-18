@@ -1,14 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Runtime.CompilerServices;
-using System.Windows.Media;
+using System.Windows;
 using System.Windows.Media.Imaging;
 using Kinect.Interfaces;
 using Kinect.Keyboard.Annotations;
-using Ninject;
-using PixelFormat = System.Drawing.Imaging.PixelFormat;
+using WpfAnimatedGif;
 
 namespace Kinect.Keyboard
 {
@@ -17,12 +14,11 @@ namespace Kinect.Keyboard
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
+        private readonly IGestureDetector _gestureDetector;
         private float _handLeft;
         private float _handTop;
         private float _kinectX;
         private float _kinectY;
-        private float MaxValue = 736;
-        private IKernel Kernel { get { return BootStrapper.Kernel; } }
 
         public float KinectX
         {
@@ -48,10 +44,7 @@ namespace Kinect.Keyboard
 
         public string ScreenMessage
         {
-            get
-            {
-                return string.Format("X: {0:N2} - Y: {1:N2}", KinectX, KinectY);
-            }
+            get { return string.Format("X: {0:N2} - Y: {1:N2}", KinectX, KinectY); }
         }
 
         public float HandTop
@@ -74,35 +67,58 @@ namespace Kinect.Keyboard
             }
         }
 
-        public MainWindow()
+        public Visibility HandUpVisibility { get; private set; }
+        public Visibility ClapVisibility { get; private set; }
+
+        public MainWindow(IGestureDetector gestureDetector)
         {
+            _gestureDetector = gestureDetector;
             HandTop = 363;
             HandLeft = 339;
 
             DataContext = this;
             InitializeComponent();
-            HandImage.Source = CreateBitmapSourceFromGdiBitmap(Properties.Resources.hand);
+            PrepareImages();
             InitializeKinect();
         }
 
         private void InitializeKinect()
         {
+            InitializeHandTracker();
+        }
+
+        private void InitializeHandTracker()
+        {
             var tracker = new HandTracker();
             tracker.Detected += (s, e) =>
             {
-                if (!tracker.HandRight.HasValue) return;
-                KinectY = tracker.HandRight.Value.Y;
-                KinectX = tracker.HandRight.Value.X;
-                HandTop = (MaxValue / 2) - (KinectY * MaxValue);
-                HandLeft = (MaxValue / 2) + (KinectX * MaxValue);
+                KinectX = tracker.KinectX;
+                KinectY = tracker.KinectY;
+                HandLeft = tracker.ScreenX;
+                HandTop = tracker.ScreenY;
             };
 
-            Kernel.Get<IGestureDetector>().RegisterGesture(tracker);
+            _gestureDetector.RegisterGesture(tracker);
+        }
+
+        private void PrepareImages()
+        {
+            HandImage.Source = CreateBitmapImage("Hand.png");
+            HandUpImage.Source = CreateBitmapImage("HandUp.jpg");
+            ImageBehavior.SetAnimatedSource(ClapImage, CreateBitmapImage("Clap.gif"));
+        }
+
+        private BitmapImage CreateBitmapImage(string image)
+        {
+            var img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri(Environment.CurrentDirectory + "\\Resources\\" + image);
+            img.EndInit();
+            return img;
         }
 
         private void Window_Closed(object sender, EventArgs eventArgs)
         {
-            BootStrapper.ShutDown();
             Environment.Exit(0);
         }
 
@@ -111,41 +127,8 @@ namespace Kinect.Keyboard
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            var handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public static BitmapSource CreateBitmapSourceFromGdiBitmap(Bitmap bitmap)
-        {
-            if (bitmap == null)
-                throw new ArgumentNullException("bitmap");
-
-            var rect = new Rectangle(0, 0, bitmap.Width, bitmap.Height);
-
-            var bitmapData = bitmap.LockBits(
-                rect,
-                ImageLockMode.ReadWrite,
-                PixelFormat.Format32bppArgb);
-
-            try
-            {
-                var size = (rect.Width * rect.Height) * 4;
-
-                return BitmapSource.Create(
-                    bitmap.Width,
-                    bitmap.Height,
-                    bitmap.HorizontalResolution,
-                    bitmap.VerticalResolution,
-                    PixelFormats.Bgra32,
-                    null,
-                    bitmapData.Scan0,
-                    size,
-                    bitmapData.Stride);
-            }
-            finally
-            {
-                bitmap.UnlockBits(bitmapData);
-            }
         }
     }
 }

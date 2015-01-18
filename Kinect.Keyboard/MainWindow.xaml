@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1000" Closed="Window_Closed">
+        Title="Kinect Demo" Height="1000" Width="1000" Closed="Window_Closed">
     <Canvas x:Name="Canvas">
         <Label Content="{Binding ScreenMessage}" />
-        <Image x:Name="HandImage" Canvas.Top="{Binding HandTop}" Canvas.Left="{Binding HandLeft}" >
-            
-        </Image>
+        <Image x:Name="HandImage" Canvas.Top="{Binding HandTop}" Canvas.Left="{Binding HandLeft}" />
+        <Image x:Name="HandUpImage" Canvas.Top="400" Canvas.Left="400" />
+        <Image x:Name="ClapImage" Canvas.Top="300" Canvas.Left="250" />
     </Canvas>
 </Window>

@@ -1,28 +1,34 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using Kinect.Core;
+using Kinect.Interfaces;
+using Ninject;
 
 namespace Kinect.Keyboard
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
+        private IKernel _container;
+
         protected override void OnStartup(StartupEventArgs e)
         {
-            BootStrapper.BootUp();
             base.OnStartup(e);
+            ConfigureContainer();
+            ComposeObjects();
+            Current.MainWindow.Show();
         }
 
-        protected override void OnExit(ExitEventArgs e)
+        private void ConfigureContainer()
         {
-            BootStrapper.ShutDown();
-            base.OnExit(e);
+            _container = new StandardKernel();
+            _container.Bind<IGestureDetector>().To(typeof(KinectManager)).InSingletonScope();
+        }
+
+        private void ComposeObjects()
+        {
+            Current.MainWindow = _container.Get<MainWindow>();
         }
     }
 }

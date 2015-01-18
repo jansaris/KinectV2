@@ -100,9 +100,9 @@ namespace Kinect.Core
 
             _gestures.Clear();
 
-            if (_kinectSensor != null)
+            if (_kinectSensor != null && _kinectSensor.IsOpen)
             {
-                if (_kinectSensor.IsOpen) _kinectSensor.Close();
+                _kinectSensor.Close();
             }
         }
 

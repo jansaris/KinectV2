@@ -8,14 +8,11 @@ namespace Kinect.Keyboard
 {
     internal class HandTracker : GestureBase
     {
-        public CameraSpacePoint? HandLeft { get; private set; }
-        public CameraSpacePoint? HandRight { get; private set; }
-
-        public HandTracker()
-        {
-            HandLeft = null;
-            HandRight = null;
-        }
+        public float KinectX { get; private set; }
+        public float KinectY { get; private set; }
+        public float ScreenX { get; private set; }
+        public float ScreenY { get; private set; }
+        private const float MaxValue = 736;
 
         protected override void AnalyzeNewBodyData()
         {
@@ -23,14 +20,22 @@ namespace Kinect.Keyboard
             {
                 var body = Bodies.FirstOrDefault(b => b.IsTracked);
                 if (body == null) return;
-                HandLeft = body.Joints[JointType.HandLeft].Position;
-                HandRight = body.Joints[JointType.HandRight].Position;
+                var hand = body.Joints[JointType.HandRight].Position;
+                SetValues(hand);
                 InvokeDetected(body.TrackingId);
             }
             catch (Exception ex)
             {
                 Debug.WriteLine("Failed to read body data", ex.Message);
             }
+        }
+
+        private void SetValues(CameraSpacePoint hand)
+        {
+            KinectX = hand.X;
+            KinectY = hand.Y;
+            ScreenX = (MaxValue / 2) + (KinectX * MaxValue);
+            ScreenY = (MaxValue / 2) - (KinectY * MaxValue);
         }
     }
 }
