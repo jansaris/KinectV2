@@ -32,9 +32,22 @@ namespace Kinect.Keyboard
         {
             var hand = body.Joints[JointType.HandRight].Position;
             var elbow = body.Joints[JointType.ElbowRight].Position;
-            var x = Math.Abs(hand.X - elbow.X);
-            var y = hand.Y - elbow.Y;
-            return x < 0.1 && y > 0; 
+            var shoulder = body.Joints[JointType.ShoulderRight].Position;
+            var xDiffs = new[]
+            {
+                Math.Abs(hand.X - elbow.X),
+                Math.Abs(hand.X - shoulder.X),
+                Math.Abs(elbow.X - shoulder.X)
+            };
+            var yDiffs = new[]
+            {
+                hand.Y - elbow.Y,
+                elbow.Y - shoulder.Y
+            };
+            var xOk = xDiffs.All(xDiff => xDiff < 0.1);
+            var yOk = yDiffs.All(yDiff => yDiff > 0);
+            Logger.InfoFormat("X: {0} - Y: {1}", xOk, yOk);
+            return xOk && yOk;
         }
 
         protected virtual void OnHandUpChanged(ulong e)
