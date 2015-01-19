@@ -8,6 +8,7 @@ namespace Kinect.Keyboard
     internal class HandTracker : GestureBase
     {
         private static readonly ILog Logger = LogManager.GetLogger(typeof(HandTracker));
+        private const float MaxValue = 736;
 
         public HandTracker()
         {
@@ -18,7 +19,6 @@ namespace Kinect.Keyboard
         public float KinectY { get; private set; }
         public float ScreenX { get; private set; }
         public float ScreenY { get; private set; }
-        private const float MaxValue = 736;
 
         protected override void AnalyzeNewBodyData()
         {
