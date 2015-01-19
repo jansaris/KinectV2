@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Media.Imaging;
 using Kinect.Interfaces;
 using Kinect.Keyboard.Annotations;
+using log4net;
 using WpfAnimatedGif;
 
 namespace Kinect.Keyboard
@@ -14,6 +15,8 @@ namespace Kinect.Keyboard
     /// </summary>
     public partial class MainWindow : INotifyPropertyChanged
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(MainWindow));
+
         private readonly IGestureDetector _gestureDetector;
         private float _handLeft;
         private float _handTop;
@@ -91,6 +94,7 @@ namespace Kinect.Keyboard
 
         public MainWindow(IGestureDetector gestureDetector)
         {
+            Logger.Info("Starting application");
             _gestureDetector = gestureDetector;
             HandTop = 363;
             HandLeft = 339;
@@ -99,6 +103,7 @@ namespace Kinect.Keyboard
             InitializeComponent();
             PrepareImages();
             InitializeKinect();
+            Logger.Info("Application started");
         }
 
         private void InitializeKinect()
@@ -127,7 +132,15 @@ namespace Kinect.Keyboard
             var handUp = new HandUpGesture();
             handUp.HandUpChanged += (sender, e) =>
             {
+                Logger.InfoFormat("HandUp Changed to: {0}", handUp.HandUp);
                 HandUpVisibility = handUp.HandUp ? Visibility.Visible : Visibility.Collapsed;
+            };
+            handUp.HandUpChanged += (sender, e) =>
+            {
+                Logger.InfoFormat("Clap detected");
+                ClapVisibility = Visibility.Visible;
+                var controller = ImageBehavior.GetAnimationController(ClapImage);
+                controller.Play();
             };
             _gestureDetector.RegisterGesture(handUp);
         }
@@ -137,6 +150,7 @@ namespace Kinect.Keyboard
             var clap = new ClapGesture();
             clap.Detected += (sender, e) =>
             {
+                Logger.InfoFormat("Clap detected");
                 ClapVisibility = Visibility.Visible;
                 var controller = ImageBehavior.GetAnimationController(ClapImage);
                 controller.Play();
@@ -169,6 +183,7 @@ namespace Kinect.Keyboard
 
         private void Window_Closed(object sender, EventArgs eventArgs)
         {
+            Logger.Info("Application closed");
             Environment.Exit(0);
         }
 

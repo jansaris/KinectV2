@@ -1,14 +1,22 @@
 ﻿using System;
 using System.Linq;
 using Kinect.Gestures;
+using log4net;
 using Microsoft.Kinect;
 
 namespace Kinect.Keyboard
 {
     public class HandUpGesture : GestureBase
     {
+        private static readonly ILog Logger = LogManager.GetLogger(typeof(HandUpGesture));
+       
         public event EventHandler<ulong> HandUpChanged;
         public bool HandUp { get; private set; }
+
+        public HandUpGesture()
+        {
+            Logger.Info("HandUpGesture initialized");
+        }
 
         protected override void AnalyzeNewBodyData()
         {
