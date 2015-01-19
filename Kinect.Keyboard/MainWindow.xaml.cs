@@ -135,13 +135,6 @@ namespace Kinect.Keyboard
                 Logger.InfoFormat("HandUp Changed to: {0}", handUp.HandUp);
                 HandUpVisibility = handUp.HandUp ? Visibility.Visible : Visibility.Collapsed;
             };
-            handUp.HandUpChanged += (sender, e) =>
-            {
-                Logger.InfoFormat("Clap detected");
-                ClapVisibility = Visibility.Visible;
-                var controller = ImageBehavior.GetAnimationController(ClapImage);
-                controller.Play();
-            };
             _gestureDetector.RegisterGesture(handUp);
         }
 
